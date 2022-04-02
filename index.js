@@ -5,34 +5,34 @@ const keyboard = Markup.inlineKeyboard([
   Markup.button.callback('Delete', 'delete')
 ])
 
-const bot = new Telegraf('543688025:AAGkD3QLpEuhqG4w9KVvNSF8gqlPagXbjOQ______')
-bot.start((ctx) => ctx.reply('Hello'))
+const bot = new Telegraf('543688025:AAGkD3QLpEuhqG4w9KVvNSF8gqlPagXbjOQ_____')
+bot.start((ctx) => {
+  ctx.reply('Привет. Рады видеть вас в нашем боте. Пожалуйста, идентифицируйте себя, нажав команду /identify');
+});
 bot.help((ctx) => {
-  console.log(ctx);
-  console.log(JSON.stringify(ctx, "", 2));
-  ctx.reply('Help message');
+  console.log(ctx.chat);
+  ctx.telegram.sendMessage(ctx.chat.id, 'справка');
 })
 
 bot.command('test', (ctx) => {
   console.log('chatId', ctx.chat.id);
-  ctx.telegram.sendMessage(ctx.chat.id, 'test test test');
 });
 
-bot.command('phone', (ctx) => {
+bot.command('identify', (ctx) => {
   console.log('chatId', ctx.chat.id);                           
-  ctx.reply("Please send your contact by pressing your contact", {
+  ctx.reply("Пожалуйста, идентфицируйте себя, нажав на кноку ниже.", {
     reply_markup: {
       keyboard: [
         [
           {
-            text: "📲 Send phone number",
+            text: "📲 отправить номер телефона",
             request_contact: true,
           },
         ],
       ],
       one_time_keyboard: true,
     },
-  })
+  });
 });
 
 bot.command('image', (ctx) => {
